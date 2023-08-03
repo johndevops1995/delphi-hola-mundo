@@ -1,0 +1,29 @@
+name: Delphi Hello World
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Delphi
+      uses: borisvl/delphi-setup@v2
+      with:
+        delphi-version: '11.0'
+        architecture: 'win64'
+
+    - name: Build project
+      run: |
+        cd delphi-hola-mundo
+        msbuild /t:Build /p:Configuration=Release
+
+    - name: Run "Hola Mundo"
+      run: delphi-hola-mundo\Release\YourProjectName.exe
+
